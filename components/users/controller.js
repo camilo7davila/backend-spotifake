@@ -12,20 +12,21 @@ function encript(password){
 
 function addUser(user, file){
     if(!user.firstName || !user.lastName || !user.user || !user.email || !user.password){
-        return Promise.reject('missing parameters')
+        return Promise.reject('faltan datos perrito')
     }
-    let fileUrl = '';
-    if(file){
-        fileUrl = 'http://localhost:3000/app/userFiles/'+file.filename
-    }
+    // let fileUrl = '';
+    // if(file){
+    //     fileUrl = 'http://localhost:3000/app/userFiles/'+file.filename
+    // }
     
     user.password = encript(user.password)
 
     const fullMessage = {
         ...user,
         creation: new Date(),
-        photo: fileUrl
+        photo: file
     }
+    
     // const fullMessage = {
     //     firstName: user.firstName,
     //     lastName: user.lastName,
