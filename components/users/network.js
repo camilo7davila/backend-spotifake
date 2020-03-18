@@ -28,7 +28,11 @@ router.get('/', (req, res) => {
 
 router.post('/', upload.single('photo') ,(req, res) => {
     console.log(req.file)
-    controller.addUser(req.body,req.file).then(data => {
+    let fileUrl = ''
+    if(req.file){
+        fileUrl = `${req.protocol}://${req.get('host')}/app/userFiles/${req.file.filename}`
+    }
+    controller.addUser(req.body, fileUrl).then(data => {
         respone.success(req,res, data, 201)
     }).catch(e => {
         respone.error(req, res, 'algo ocurrio en post', 500)
