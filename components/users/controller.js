@@ -2,12 +2,12 @@ const crypto = require('crypto')
 const store = require('./store')
 
 function encript(password){
-    let algorithm = 'aes-256-cbc'; //algoritmo de encriptación;
-    let key = crypto.createCipher(algorithm, password)
-    let encriptedPass = key.update(password, 'utf8', 'hex')
-    encriptedPass += key.final('hex')
-
-    return encriptedPass;
+    let pwd = ''
+    crypto.scrypt(password, 'salt', 64, (err, key) => {
+        if(err) throw err
+        pwd += key.toString('hex')
+    })
+    return pwd
 }
 
 function addUser(user, file){
@@ -20,6 +20,8 @@ function addUser(user, file){
     // }
     
     user.password = encript(user.password)
+
+    console.log('adding obj')
 
     const fullMessage = {
         ...user,
