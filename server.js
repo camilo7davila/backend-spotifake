@@ -10,10 +10,11 @@ db('mongodb+srv://root_bm:root_bm@bictiamusic-7kfl1.mongodb.net/test?retryWrites
 let app = express();
 
 app.use(bodyParser.json())
+app.use(cors({
+    origin: '*'
+}))
 
 router(app)
-
-app.use(cors());
 
 app.use('/app', express.static('public'));
 
