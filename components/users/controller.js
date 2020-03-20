@@ -10,34 +10,26 @@ function encript(password){
     return pwd
 }
 
-function addUser(user, file){
+async function addUser(user, file){
     if(!user.firstName || !user.lastName || !user.user || !user.email || !user.password){
-        return Promise.reject('faltan datos perrito')
+        return Promise.reject('falta algun campo')
     }
-    // let fileUrl = '';
-    // if(file){
-    //     fileUrl = 'http://localhost:3000/app/userFiles/'+file.filename
-    // }
+
+    await store.emailValidator(user.email).then(() => {}).catch(e => {
+        return Promise.reject(e)
+    })
+
+    await store.userValidator(user.user).then(() => {}).catch(e => {
+        return Promise.reject(e)
+    })
     
     user.password = encript(user.password)
-
-    console.log('adding obj')
-
+    
     const fullMessage = {
         ...user,
         creation: new Date(),
         photo: file
     }
-    
-    // const fullMessage = {
-    //     firstName: user.firstName,
-    //     lastName: user.lastName,
-    //     user: user.user,
-    //     email: user.email,
-    //     passwprd: user.password,
-    //     photo: fileUrl
-    // }
-    
     return store.add(fullMessage)
 }
 
