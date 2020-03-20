@@ -6,10 +6,6 @@ const controller = require('./controller');
 
 const router = express.Router();
 
-// const upload = multer({
-//     dest: 'public/files/',
-// })
-
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/userFiles/')
@@ -27,17 +23,17 @@ router.get('/', (req, res) => {
 })
 
 router.post('/', upload.single('photo') ,(req, res) => {
-    console.log(req.file)
     let fileUrl = ''
     if(req.file){
         fileUrl = `${req.protocol}://${req.get('host')}/app/userFiles/${req.file.filename}`
+    }else{
+        fileUrl = `${req.protocol}://${req.get('host')}/app/userAvatar/genericAvatar.png`
     }
     controller.addUser(req.body, fileUrl).then(data => {
         respone.success(req,res, data, 201)
     }).catch(e => {
-        respone.error(req, res, 'algo ocurrio en post', 500)
+        respone.error(req, res, String(e), 500)
         console.log('este es el error => ',e);
     })
 })
-
 module.exports = router;
