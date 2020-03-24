@@ -5,13 +5,14 @@ let email_match = [/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-
 const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
-    firstName: {type:String, required: true, minlength: [4, "El password es muy corto"]},
-    lastName: {type:String, required: true, minlength: [4, "El password es muy corto"]},
-    user: {type:String, required: true, minlength: [4, "El password es muy corto"]},
-    email: {type:String, required: "Correo es obligatorio", match:email_match},
-    password: {type:String, minlength: [8, "El password es muy corto"]},
+    firstName: {type:String, required: true, minlength: [2, "El nombre es muy corto"]},
+    lastName: {type:String, required: true, minlength: [2, "El apellido es muy corto"]},
+    user: {type:String, required: true, minlength: [4, "El password es muy corto"], unique: true},
+    email: {type:String, required: true, match:email_match, unique: true},
+    password: {type: String, required: true},
     photo: String,
-    creation: Date,
+}, {
+    timestamps: true
 })
 
 const model = mongoose.model('User', mySchema);

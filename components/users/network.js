@@ -33,7 +33,17 @@ router.post('/', upload.single('photo') ,(req, res) => {
         respone.success(req,res, data, 201)
     }).catch(e => {
         respone.error(req, res, String(e), 500)
-        console.log('este es el error => ',e);
     })
 })
+
+router.post('/login', (req,res) => {
+    controller.loginUser(req.body).then(token => {
+        console.log(token);
+        respone.success(req,res,token,201)
+    }).catch(e => {
+        console.log(e);
+        respone.error(req,res, e , 400)
+    })
+})
+
 module.exports = router;
