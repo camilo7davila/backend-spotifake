@@ -30,6 +30,7 @@ router.post('/', upload.single('photo') ,(req, res) => {
         fileUrl = `${req.protocol}://${req.get('host')}/app/userAvatar/genericAvatar.png`
     }
     controller.addUser(req.body, fileUrl).then(data => {
+        console.log(data)
         respone.success(req,res, data, 201)
     }).catch(e => {
         respone.error(req, res, String(e), 500)

@@ -1,6 +1,5 @@
 const jwt = require('jsonwebtoken')
 const bcrypt = require('bcrypt')
-
 const store = require('./store')
 
 function signData(data) {
