@@ -53,9 +53,19 @@ function loginValidation(dataEmail) {
     })
 }
 
+async function findAndUpdate(idParams, data){
+    return Model.findOneAndUpdate({_id : idParams}, data,{new:true},(error,user) =>{
+        if(error){
+            return Promise.reject('Ocurrio un error en la busqueda del usuario')
+        }
+        return (user)
+    })
+}
+
 module.exports = {
     add: addUser,
     emailValidator: emailValidator,
     userValidator: userValidator,
-    loginValidation: loginValidation
+    loginValidation: loginValidation,
+    findAndUpdate: findAndUpdate
 }

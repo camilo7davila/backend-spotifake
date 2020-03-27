@@ -3,6 +3,7 @@ const multer = require('multer');
 const path = require('path');
 const respone = require('../../network/response');
 const controller = require('./controller');
+const secure = require('./secure')
 
 const router = express.Router();
 
@@ -42,8 +43,16 @@ router.post('/login', (req,res) => {
         console.log(token);
         respone.success(req,res,token,201)
     }).catch(e => {
-        console.log(e);
         respone.error(req,res, e , 400)
+    })
+})
+
+router.patch('/:id',secure('update'),(req,res) => {
+    controller.editUser(req.params.id,req.body).then(data => {
+        respone.success(req,res,data, 200)
+    }).catch(e => {
+        console.error('Error => ',e);
+        respone.error(req,res,e, 400)
     })
 })
 
