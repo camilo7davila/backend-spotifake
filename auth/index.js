@@ -14,7 +14,7 @@ const check = {
         console.log('token decifrado ==>', decode);
 
         if(decode.id !== owner){
-            throw new Error('No puede hace esto')
+            throw new Error('No puede hacer esto')
         }
     }
 }
