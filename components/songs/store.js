@@ -1,4 +1,6 @@
 const Model = require('./model')
+const UserModel = require('../users/model');
+const GenerModel = require('../geners/model')
 
 function addSong(song){
     const MyGener = new Model(song);
@@ -8,9 +10,9 @@ function addSong(song){
 
 function idGenersValidator(idGener){
     return new Promise((resolve, reject) => {
-        Model.find({ idGener: idGener }).limit(1).exec((err, idGener) => {
+        GenerModel.find({ _id: idGener }).limit(1).exec((err, idGener) => {
             if (err){
-                return reject('Ocurrio un error')
+                return reject('Ocurrio un error al buscar el genero')
             }
             if (idGener.length === 0){
                 return resolve('El genero no existe');
@@ -25,7 +27,7 @@ function idGenersValidator(idGener){
 
 function idAuthorValidator(idAuthor){
     return new Promise((resolve, reject) => {
-        Model.find({ idAuthor: idAuthor }).limit(1).exec((err, idAuthor) => {
+        UserModel.find({ _id: idAuthor }).limit(1).exec((err, idAuthor) => {
             if (err){
                 return reject('Ocurrio un error')
             }
@@ -56,9 +58,24 @@ function idAlbumValidator(idAlbum){
     })
 }
 
+function getSongs(){
+    console.log('entrando a la funcion getsongs BD ')
+    return new Promise((resolve, reject) => {
+        Model.find().populate('user').exec((error, populate) => {
+            if(error){
+                reject(error);
+                return false;
+            }
+            console.log('populate -----------------> ',populate)
+            resolve(populate)
+        })
+    })
+}
+
 module.exports = {
     add: addSong,
     idGenersValidator: idGenersValidator,
     idAuthorValidator: idAuthorValidator,
-    idAlbumValidator: idAlbumValidator
+    idAlbumValidator: idAlbumValidator,
+    getSongs: getSongs
 }
