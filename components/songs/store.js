@@ -62,7 +62,7 @@ function idAlbumValidator(idAlbum){
 function getSongs(){
     console.log('entrando a la funcion getsongs BD ')
     return new Promise((resolve, reject) => {
-        Model.find().populate('idAuthor').populate('idGener').exec((error, populate) => {
+        Model.find().populate('idAuthor').populate('idGener').populate('idAlbum').exec((error, populate) => {
             if(error){
                 reject(error);
                 return false;
