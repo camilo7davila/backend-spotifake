@@ -14,5 +14,13 @@ router.post('/', (req, res) => {
     })
 });
 
+router.get('/', (req, res) =>{
+    console.log('GET');
+    controller.listadoAlbunes().then(dataAlbum => {
+        response.success(req, res, dataAlbum, 200)
+    }).catch(error => {
+        response.error(req, res, error, 500)
+    })
+});
 
 module.exports = router;

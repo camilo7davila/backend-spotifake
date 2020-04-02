@@ -18,10 +18,17 @@ async function addAlbum(album) {
     return store.add(fullMessage)
 }
 
+async function listadoAlbunes(){
+    //const getSongs = store.getSongs
+    console.log('estamos en listar albunes')
+    return store.getAlbums();
+}
+
 
 
 
 module.exports = {
     addAlbumController: addAlbum,
+    listadoAlbunes: listadoAlbunes
     
 } 

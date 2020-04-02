@@ -7,8 +7,8 @@ const mySchema = new Schema({
     durationSong: {type:String, required: true},
     idGener: {type:Schema.Types.ObjectId, required: true, ref:'Gener'},
     idAuthor: {type:Schema.Types.ObjectId, ref:'User'},
-    idAlbum: {type:String, require: true},
-    qualification: {type:Number, require: true, minlength: [1, "La calificacion no es valida"]}
+    idAlbum: {type:Schema.Types.ObjectId, require: true, ref:'Album'},
+    qualification: {type:Number, require: true, max: 5, min: 1}
 },{
     timestamps: true
 })

@@ -1,6 +1,7 @@
 const Model = require('./model')
 const UserModel = require('../users/model');
-const GenerModel = require('../geners/model')
+const GenerModel = require('../geners/model');
+const AlbumModel = require('../albums/model')
 
 function addSong(song){
     const MyGener = new Model(song);
@@ -29,7 +30,7 @@ function idAuthorValidator(idAuthor){
     return new Promise((resolve, reject) => {
         UserModel.find({ _id: idAuthor }).limit(1).exec((err, idAuthor) => {
             if (err){
-                return reject('Ocurrio un error')
+                return reject('Ocurrio un error al buscar el autor')
             }
             if (idAuthor.length === 0){
                 return resolve('El autor no existe');
@@ -44,12 +45,12 @@ function idAuthorValidator(idAuthor){
 
 function idAlbumValidator(idAlbum){
     return new Promise((resolve, reject) => {
-        Model.find({ idAlbum: idAlbum }).limit(1).exec((err, idAlbum) => {
+        AlbumModel.find({ _id: idAlbum }).limit(1).exec((err, idAlbum) => {
             if (err){
-                return reject('Ocurrio un error')
+                return reject('Ocurrio un error al buscar el album')
             }
             if (idAlbum.length === 0){
-                return resolve('El autor no existe');
+                return resolve('El album no existe');
             }
             if (idAlbum.length !== 0){
                 return resolve(idAlbum)
