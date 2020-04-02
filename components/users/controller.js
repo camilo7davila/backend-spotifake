@@ -8,13 +8,9 @@ async function addUser(user, file) {
         return Promise.reject('falta algun campo')
     }
 
-    await store.emailValidator(user.email).then(() => { }).catch(e => {
-        return Promise.reject(e)
-    })
+    await store.emailValidator(user.email)
 
-    await store.userValidator(user.user).then(() => { }).catch(e => {
-        return Promise.reject(e)
-    })
+    await store.userValidator(user.user)
 
     const fullMessage = {
         firstName: user.firstName,
