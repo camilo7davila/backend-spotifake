@@ -3,22 +3,14 @@ const bcrypt = require('bcrypt')
 const store = require('./store')
 const authExport = require('../../auth/index')
 
-// function signData(data) {
-//     return jwt.sign(data, 'secreto')
-// }
-
 async function addUser(user, file) {
     if (!user.firstName || !user.lastName || !user.user || !user.email || !user.password) {
         return Promise.reject('falta algun campo')
     }
 
-    await store.emailValidator(user.email).then(() => { }).catch(e => {
-        return Promise.reject(e)
-    })
+    await store.emailValidator(user.email)
 
-    await store.userValidator(user.user).then(() => { }).catch(e => {
-        return Promise.reject(e)
-    })
+    await store.userValidator(user.user)
 
     const fullMessage = {
         firstName: user.firstName,
@@ -42,9 +34,16 @@ async function loginUser(data) {
         email: user[0].email,
         user: user[0].user,
     }
+
+    const userFinal = {
+        ...auth,
+        firstName: user[0].firstName,
+        lastName: user[0].lastName,
+        token: authExport.sign(auth)
+    }
     return bcrypt.compare(data.password, user[0].password).then(sonIguales => {
         if (sonIguales === true) {
-            return authExport.sign(auth)
+            return userFinal
         } else {
             return Promise.reject('La constraseña no coincide')
         }
