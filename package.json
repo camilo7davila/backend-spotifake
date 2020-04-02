@@ -1,7 +1,6 @@
 {
   "name": "spotifake",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -16,11 +15,20 @@
     "crypto-js": "^4.0.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.4",
+    "mongoose": "^5.9.7",
     "multer": "^1.4.2",
     "path": "^0.12.7"
   },
   "devDependencies": {
     "nodemon": "^2.0.2"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/camilo7davila/backend-spotifake.git"
+  },
+  "bugs": {
+    "url": "https://github.com/camilo7davila/backend-spotifake/issues"
+  },
+  "homepage": "https://github.com/camilo7davila/backend-spotifake#readme",
+  "description": ""
 }
