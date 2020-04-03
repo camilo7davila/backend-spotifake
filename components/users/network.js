@@ -28,7 +28,7 @@ router.post('/', upload.single('photo') ,(req, res) => {
     if(req.file){
         fileUrl = `${req.protocol}://${req.get('host')}/app/userFiles/${req.file.filename}`
     }else{
-        fileUrl = `${req.protocol}://${req.get('host')}/app/userAvatar/genericAvatar.png`
+        fileUrl = `${req.protocol}://${req.get('host')}/app/userAvatar/avatarGenerico.png`
     }
     controller.addUser(req.body, fileUrl).then(data => {
         console.log(data)

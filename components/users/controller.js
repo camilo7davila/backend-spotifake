@@ -39,6 +39,7 @@ async function loginUser(data) {
         ...auth,
         firstName: user[0].firstName,
         lastName: user[0].lastName,
+        photo: user[0].photo,
         token: authExport.sign(auth)
     }
     return bcrypt.compare(data.password, user[0].password).then(sonIguales => {
