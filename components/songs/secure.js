@@ -9,6 +9,11 @@ module.exports = function checkAuth(action) {
                 auth.check.own(req, owner);
                 next()
                 break;
+            case 'postDelete':
+                const owner_delete = req.body.idAuthor
+                auth.check.own(req, owner_delete);
+                next()
+                break;
 
             default:
                 next();

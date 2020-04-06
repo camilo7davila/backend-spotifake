@@ -31,9 +31,20 @@ async function listarCanciones(){
     return store.getSongs();
 }
 
+async function deleteSong(idSong, idAuthor){
+    if(!idAuthor || !idSong){
+        return Promise.reject('Faltan parametros')
+    }
+    const deleteSong = await store.findAndDelete(idSong);
+    
+    return deleteSong
+    
+}
+
 module.exports = {
     addSong: addSong,
-    listarCanciones: listarCanciones
+    listarCanciones: listarCanciones,
+    deleteSong: deleteSong
 }
 
 // ,

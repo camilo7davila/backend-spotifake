@@ -25,4 +25,13 @@ router.get('/', (req, res) => {
     })
 })
 
+router.delete('/:id',secure('postDelete'),(req, res) => {
+    controller.deleteSong(req.params.id,req.body.idAuthor).then(data => {
+        response.success(req,res, 'se elimino la cancion exitosamente', 200)
+    }).catch(e => {
+        console.error('Error => ',e);
+        response.error(req,res,e, 400)
+    })
+})
+
 module.exports = router;
