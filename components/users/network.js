@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
     console.log('estamos en get');
 })
 
-router.post('/', upload.single('photo') ,(req, res) => {
+router.post('/', upload.single('photo'),(req, res) => {
     let fileUrl = ''
     if(req.file){
         fileUrl = `${req.protocol}://${req.get('host')}/app/userFiles/${req.file.filename}`

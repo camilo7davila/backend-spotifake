@@ -6,7 +6,7 @@ const AlbumModel = require('../albums/model')
 function addSong(song){
     const MyGener = new Model(song);
     console.log('Creando cancion');
-    return MyGener.save();
+    return MyGener.save(); //returna una promesa
 }
 
 function idGenersValidator(idGener){
@@ -60,7 +60,7 @@ function idAlbumValidator(idAlbum){
 }
 
 function getSongs(){
-    console.log('entrando a la funcion getsongs BD ')
+    // console.log('entrando a la funcion getsongs BD ')
     return new Promise((resolve, reject) => {
         Model.find().populate('idAuthor').populate('idGener').populate('idAlbum').exec((error, populate) => {
             if(error){

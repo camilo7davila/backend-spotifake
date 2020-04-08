@@ -11,7 +11,7 @@ const mySchema = new Schema({
     user: {type:String, required: true, minlength: [4, "El password es muy corto"], unique: true},
     email: {type:String, required: true, match:email_match, unique: true},
     password: {type: String, required: true},
-    photo: String,
+    photo: String
 }, {
     timestamps: true
 })
