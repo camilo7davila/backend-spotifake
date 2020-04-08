@@ -10,7 +10,7 @@ const mySchema = new Schema({
     idAlbum: {type:Schema.Types.ObjectId, require: true, ref:'Album'},
     qualification: {type:Number, require: true, max: 5, min: 1},
     songFile: {type:String, required: true},
-    imgSong: String,
+    imgSong: {type:String, required: true}
 },{
     timestamps: true
 })
