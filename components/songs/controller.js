@@ -41,10 +41,17 @@ async function deleteSong(idSong, idAuthor){
     
 }
 
+async function searchSong(word){
+    console.log('estamos buscando la cancion')
+    return store.findSong(word)
+}
+
+
 module.exports = {
     addSong: addSong,
     listarCanciones: listarCanciones,
-    deleteSong: deleteSong
+    deleteSong: deleteSong,
+    searchSong : searchSong
 }
 
 // ,
