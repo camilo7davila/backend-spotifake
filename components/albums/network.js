@@ -4,7 +4,28 @@ const path = require('path');
 const router = express.Router();
 const controller = require('./controller');
 const response = require('../../network/response');
+const multer = require("multer");
 
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, "public/albums");
+    },
+    filename: function (req, file, cb) {
+      cb(null, Date.now() + path.extname(file.originalname));
+    },
+  });
+
+  const upload = multer({ storage: storage });
+
+  let dobleInput = upload.fields([{ name: "albums" }, { name: "photo" }]);
+  router.post("/", dobleInput, (req, res) => {
+    
+   
+  });
+
+
+  
+//////
 router.post('/', (req, res) => {
     console.log(req.body)
     controller.addAlbumController(req.body).then(data => {

@@ -1,5 +1,8 @@
 const store = require('./store');
 
+
+
+
 async function addAlbum(album) {
     if (!album.nameAlbum || !album.dateAlbum || !album.idAutor ) {
         return Promise.reject('Falta un campo')
