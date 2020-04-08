@@ -73,10 +73,29 @@ function getSongs(){
     })
 }
 
+function findAndDelete(idParams, data){
+    return new Promise((resolve, reject) => {
+        Model.findOneAndRemove({_id : idParams},(error, song) =>{
+            if(error){
+                console.log('estamos en error')
+                reject('Ocurrio un error al eliminar la cancion')
+            }
+            if (song === null){
+                reject('No se encuentra la cancion')
+            }else{
+                resolve (song)
+            }
+            
+        })
+    })
+    
+}
+
 module.exports = {
     add: addSong,
     idGenersValidator: idGenersValidator,
     idAuthorValidator: idAuthorValidator,
     idAlbumValidator: idAlbumValidator,
-    getSongs: getSongs
+    getSongs: getSongs,
+    findAndDelete: findAndDelete
 }
