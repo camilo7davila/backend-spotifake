@@ -1,14 +1,28 @@
 const express = require('express');
-
 const router = express.Router();
 const controller = require('./controller');
 const response = require('../../network/response');
+const secure = require('./secure');
+const path = require('path');
+const multer = require('multer');
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/songFiles/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)) //Appending .jpg
+    }
+})
+const upload = multer({ storage: storage })
 
-const secure = require('./secure')
 
-router.post('/',secure('postCreate'), (req, res) => {
-    console.log(req.body)
-    controller.addSong(req.body).then(dataSong => {
+router.post('/', upload.single('songFile'),secure('postCreate'),(req, res) => {
+    console.log('************',req.file)
+    let fileUrl = ''
+    if(req.file){
+        fileUrl = `${req.protocol}://${req.get('host')}/app/songFiles/${req.file.filename}`
+    }
+    controller.addSong(req.body, fileUrl).then(dataSong => {
         response.success(req, res, dataSong, 201)
     }).catch(error => {
         response.error(req, res, error, 500)
