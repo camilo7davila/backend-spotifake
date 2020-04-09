@@ -1,13 +1,11 @@
 const express = require('express');
-
 const router = express.Router();
 const controller = require('./controller');
 const response = require('../../network/response');
 
 const secure = require('./secure')
 
-router.post('/',secure('postCreate'), foto, mp3 ,(req, res) => {
-    console.log(req.body)
+router.post('/',(req, res) => {
     controller.addSong(req.body).then(dataSong => {
         response.success(req, res, dataSong, 201)
     }).catch(error => {
