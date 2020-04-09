@@ -15,7 +15,6 @@ async function addSong(song, fileUrl, fileImgSongUrl){
 
     const fullMessage = {
         nameSong: song.nameSong,
-        durationSong: song.durationSong,
         idGener: song.idGener,
         idAuthor: song.idAuthor,
         idAlbum: song.idAlbum,
