@@ -65,8 +65,36 @@ async function editUser(id, data) {
         return edit
 }
 
+async function addFavSong(id, body) {
+    if (!id || !body.favSong){
+        return Promise.reject('falta información')
+    }
+    if (mongoose.Types.ObjectId.isValid(id) !== true || mongoose.Types.ObjectId.isValid(body.favSong) !== true) {
+        return Promise.reject('Algun id no es valido')
+    }
+
+    let validator = await store.validarFavSong(id,body)
+
+    let edit = await store.addFav(id, body)
+    return edit
+}
+
+async function deleteFavSong(id, body){
+    if (!id || !body.favSong){
+        return Promise.reject('falta información')
+    }
+    if (mongoose.Types.ObjectId.isValid(id) !== true || mongoose.Types.ObjectId.isValid(body.favSong) !== true) {
+        return Promise.reject('Algun id no es valido')
+    }
+
+    let edit = await store.removeFav(id, body)
+    return edit
+}
+
 module.exports = {
     addUser,
     loginUser,
-    editUser
+    editUser,
+    addFavSong,
+    deleteFavSong
 }

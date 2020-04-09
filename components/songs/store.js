@@ -60,7 +60,6 @@ function idAlbumValidator(idAlbum){
 }
 
 function getSongs(){
-    // console.log('entrando a la funcion getsongs BD ')
     return new Promise((resolve, reject) => {
         Model.find().populate('idAuthor').populate('idGener').populate('idAlbum').exec((error, populate) => {
             if(error){
@@ -88,7 +87,6 @@ function findAndDelete(idParams, data){
             
         })
     })
-    
 }
 
 module.exports = {

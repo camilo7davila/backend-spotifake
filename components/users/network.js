@@ -7,6 +7,7 @@ const secure = require('./secure')
 
 const router = express.Router();
 
+//Configurando multer, y nombre de como se va a guardar el archivo
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/userFiles/')
@@ -18,11 +19,13 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
+//funcion de prueba 
 router.get('/', (req, res) => {
     respone.success(req, res,'estamos en get',200 )
     console.log('estamos en get');
 })
 
+//creacion de un usuario, opcional se puede subir foto
 router.post('/', upload.single('photo'),(req, res) => {
     let fileUrl = ''
     if(req.file){
@@ -38,6 +41,7 @@ router.post('/', upload.single('photo'),(req, res) => {
     })
 })
 
+//Hacer login del usuario, devuleve token
 router.post('/login', (req,res) => {
     controller.loginUser(req.body).then(token => {
         console.log(token);
@@ -47,6 +51,26 @@ router.post('/login', (req,res) => {
     })
 })
 
+//funcion para agregar a favoritos
+router.patch('/addFavorite/:id',secure('update'), (req, res) => {
+    controller.addFavSong(req.params.id,req.body).then(data => {
+        respone.success(req,res, data, 200)
+    }).catch(e => {
+        respone.error(req,res,e, 500)
+    })
+})
+
+//funcion para eliminar favoritos
+router.patch('/removeFavorite/:id',secure('update'), (req,res) => {
+    controller.deleteFavSong(req.params.id,req.body).then(data=> {
+        respone.success(req,res,data,200)
+    }).catch(e => {
+        respone.error(req,res,e,500)
+    })
+})
+
+
+//Editar el usuario, devuelve la info editada
 router.patch('/:id',secure('update'),(req,res) => {
     controller.editUser(req.params.id,req.body).then(data => {
         respone.success(req,res,data, 200)
