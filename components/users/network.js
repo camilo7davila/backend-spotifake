@@ -80,4 +80,6 @@ router.patch('/:id',secure('update'),(req,res) => {
     })
 })
 
+//router de prueba
+
 module.exports = router;
