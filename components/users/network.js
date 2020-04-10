@@ -26,14 +26,8 @@ router.get('/', (req, res) => {
 })
 
 //creacion de un usuario, opcional se puede subir foto
-router.post('/', upload.single('photo'),(req, res) => {
-    let fileUrl = ''
-    if(req.file){
-        fileUrl = `${req.protocol}://${req.get('host')}/app/userFiles/${req.file.filename}`
-    }else{
-        fileUrl = `${req.protocol}://${req.get('host')}/app/userAvatar/avatarGenerico.png`
-    }
-    controller.addUser(req.body, fileUrl).then(data => {
+router.post('/',(req, res) => {
+    controller.addUser(req.body).then(data => {
         console.log(data)
         respone.success(req,res, data, 201)
     }).catch(e => {

@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt')
 const store = require('./store')
 const authExport = require('../../auth/index')
 
-async function addUser(user, file) {
+async function addUser(user) {
     if (!user.firstName || !user.lastName || !user.user || !user.email || !user.password) {
         return Promise.reject('falta algun campo')
     }
@@ -18,7 +18,7 @@ async function addUser(user, file) {
         user: user.user,
         email: user.email,
         password: await bcrypt.hash(user.password, 5),
-        photo: file
+        photo: user.photo
     }
     return store.add(fullMessage)
 }

@@ -18,16 +18,9 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage })
 
 
-router.post('/', upload.fields([{ name: 'songFile', maxCount: 1 }, { name: 'imgSong', maxCount: 1 }]), secure('postCreate'), (req, res) => {
-    let fileMp3Url = ''
-    let fileImgSongUrl = ''
-    if (req.files['songFile'][0]) {
-        fileMp3Url = `${req.protocol}://${req.get('host')}/app/songFiles/${req.files['songFile'][0].filename}`
-    }
-    if (req.files['imgSong'][0]) {
-        fileImgSongUrl = `${req.protocol}://${req.get('host')}/app/songFiles/${req.files['imgSong'][0].filename}`
-    }
-    controller.addSong(req.body, fileMp3Url, fileImgSongUrl).then(dataSong => {
+router.post('/', secure('postCreate'), (req, res) => {
+
+    controller.addSong(req.body).then(dataSong => {
         response.success(req, res, dataSong, 201)
     }).catch(error => {
         response.error(req, res, error, 500)

@@ -1,7 +1,7 @@
 const store = require('./store');
 
-async function addSong(song, fileUrl, fileImgSongUrl){
-    if (!song.nameSong || !song.idGener || !song.idAuthor || !song.qualification){
+async function addSong(song){
+    if (!song.nameSong || !song.idGener || !song.idAuthor || !song.qualification || !song.songFile || !song.imgSong){
         return Promise.reject('Faltan datos de la cancion')
     }
 
@@ -19,8 +19,8 @@ async function addSong(song, fileUrl, fileImgSongUrl){
         idAuthor: song.idAuthor,
         idAlbum: song.idAlbum,
         qualification: song.qualification,
-        songFile: fileUrl,
-        imgSong: fileImgSongUrl
+        songFile: song.songFile,
+        imgSong: song.imgSong
     }
 
     return store.add(fullMessage)

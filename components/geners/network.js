@@ -6,7 +6,6 @@ const controller = require('./controller');
 const response = require('../../network/response');
 
 router.post('/', (req, res) => {
-    console.log(req.body)
     controller.addGenerControl(req.body).then(dataGener => {
         response.success(req, res, dataGener, 201)
     }).catch(error => {
