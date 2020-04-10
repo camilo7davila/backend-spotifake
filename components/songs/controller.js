@@ -14,7 +14,7 @@ async function addSong(song, fileUrl, fileImgSongUrl){
     // })//dos formas de llamar la funcion
 
     const fullMessage = {
-        nameSong: song.nameSong,
+        nameSong: song.nameSong, 
         idGener: song.idGener,
         idAuthor: song.idAuthor,
         idAlbum: song.idAlbum,
@@ -47,8 +47,3 @@ module.exports = {
     listarCanciones: listarCanciones,
     deleteSong: deleteSong
 }
-
-// ,
-//         audio: audio
-//!song.durationSong ||
-//|| !song.idAlbum

@@ -7,7 +7,6 @@ const mySchema = new Schema({//Schema of collections
     //image: {type:String},
     dateAlbum:{type:String, required: true},
     idAutor:{type:Schema.Types.ObjectId, required:true, ref:'User'},
-    canciones:[{type:Schema.Types.ObjectId, ref:'Song', required:true,}]
 }, {
     timestamps: true
 })

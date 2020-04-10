@@ -5,7 +5,6 @@ const AlbumModel = require('../albums/model')
 
 function addSong(song){
     const MyGener = new Model(song);
-    console.log('Creando cancion');
     return MyGener.save(); //returna una promesa
 }
 
@@ -66,7 +65,6 @@ function getSongs(){
                 reject(error);
                 return false;
             }
-            console.log('populate -----------------> ',populate)
             resolve(populate)
         })
     })
@@ -76,7 +74,6 @@ function findAndDelete(idParams, data){
     return new Promise((resolve, reject) => {
         Model.findOneAndRemove({_id : idParams},(error, song) =>{
             if(error){
-                console.log('estamos en error')
                 reject('Ocurrio un error al eliminar la cancion')
             }
             if (song === null){
