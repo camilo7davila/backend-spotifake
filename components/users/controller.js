@@ -17,8 +17,7 @@ async function addUser(user) {
         lastName: user.lastName,
         user: user.user,
         email: user.email,
-        password: await bcrypt.hash(user.password, 5),
-        photo: user.photo
+        password: await bcrypt.hash(user.password, 5)
     }
     return store.add(fullMessage)
 }
