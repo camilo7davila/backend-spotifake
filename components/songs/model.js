@@ -8,8 +8,7 @@ const mySchema = new Schema({
     idAuthor: {type:Schema.Types.ObjectId, ref:'User'},
     idAlbum: {type:Schema.Types.ObjectId, require: true, ref:'Album'},
     qualification: {type:Number, require: true, max: 5, min: 1},
-    songFile: {type:String, required: true},
-    imgSong: {type:String, required: true}
+    songFile: {type:String, required: true}
 },{
     timestamps: true
 })

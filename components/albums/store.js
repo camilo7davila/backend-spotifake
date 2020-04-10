@@ -20,8 +20,23 @@ function getAlbums(){
     })
 }
 
+function getAlbumsById(id){
+    return new Promise((resolve,reject) => {
+        Model.find({idAutor : id}).exec((err,data) => {
+            if(err){
+                return reject(e)
+            }
+            if(data.length === 0){
+                return resolve('No se encontro albumes')
+            }
+            return resolve(data)
+        })
+    })
+}
+
 
 module.exports = {
     add: addAlbum,
-    getAlbums: getAlbums
+    getAlbums: getAlbums,
+    getAlbumsById: getAlbumsById
 } 
