@@ -74,6 +74,16 @@ router.patch('/:id',secure('update'),(req,res) => {
     })
 })
 
+//Obtener Usuario por Id
+
+router. get('/:id', (req,res) => {
+    controller.userById(req.params.id).then(data => {
+        respone.success(req,res,data, 200)
+    }).catch(e => {
+        respone.error(req,res,e,501)
+    })
+})
+
 //router de prueba
 
 module.exports = router;

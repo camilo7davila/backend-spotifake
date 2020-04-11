@@ -17,6 +17,7 @@ async function addUser(user) {
         lastName: user.lastName,
         user: user.user,
         email: user.email,
+        rol: false,
         password: await bcrypt.hash(user.password, 5)
     }
     return store.add(fullMessage)
@@ -90,10 +91,22 @@ async function deleteFavSong(id, body){
     return edit
 }
 
+async function userById(id){
+    if(!id){
+        return Promise.reject('fatlan parametros')
+    }
+    if(mongoose.Types.ObjectId.isValid(id) !== true){
+        return Promise.reject('El id no es valido')
+    }
+
+    return store.userById(id)
+}
+
 module.exports = {
     addUser,
     loginUser,
     editUser,
     addFavSong,
-    deleteFavSong
+    deleteFavSong,
+    userById
 }

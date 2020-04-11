@@ -107,6 +107,20 @@ function validarFavSong(id, body) {
     })
 }
 
+function userById(id){
+    return new Promise((resolve,reject) => {
+        Model.find({_id: id}).exec((err, user)=> {
+            if(err){
+                return reject('Ocurrio un error en la busqqueda del usuario')
+            }
+            if(user.length === 0){
+                return reject('No se encontraron coincidencias con el id')
+            }
+            return resolve(user)
+        })
+    })
+}
+
 module.exports = {
     add: addUser,
     emailValidator: emailValidator,
@@ -115,5 +129,6 @@ module.exports = {
     findAndUpdate: findAndUpdate,
     addFav: addFav,
     validarFavSong: validarFavSong,
-    removeFav: removeFav
+    removeFav: removeFav,
+    userById: userById
 }
