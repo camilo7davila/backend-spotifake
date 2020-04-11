@@ -1,7 +1,7 @@
 const store = require('./store');
 
 async function addSong(song){
-    if (!song.nameSong || !song.idGener || !song.idAuthor || !song.qualification){
+    if (!song.nameSong || !song.idGener || !song.idAuthor || !song.qualification || !song.songFile){
         return Promise.reject('Faltan datos de la cancion')
     }
 
@@ -14,12 +14,12 @@ async function addSong(song){
     // })//dos formas de llamar la funcion
 
     const fullMessage = {
-        nameSong: song.nameSong,
-        durationSong: song.durationSong,
+        nameSong: song.nameSong, 
         idGener: song.idGener,
         idAuthor: song.idAuthor,
         idAlbum: song.idAlbum,
-        qualification: song.qualification
+        qualification: song.qualification,
+        songFile: song.songFile,
     }
 
     return store.add(fullMessage)
@@ -58,8 +58,3 @@ module.exports = {
     deleteSong: deleteSong,
     searchSong : searchSong
 }
-
-// ,
-//         audio: audio
-//!song.durationSong ||
-//|| !song.idAlbum

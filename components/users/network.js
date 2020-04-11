@@ -7,6 +7,7 @@ const secure = require('./secure')
 
 const router = express.Router();
 
+//Configurando multer, y nombre de como se va a guardar el archivo
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
         cb(null, 'public/userFiles/')
@@ -18,19 +19,11 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-router.get('/', (req, res) => {
-    respone.success(req, res,'estamos en get',200 )
-    console.log('estamos en get');
-})
 
-router.post('/', upload.single('photo') ,(req, res) => {
-    let fileUrl = ''
-    if(req.file){
-        fileUrl = `${req.protocol}://${req.get('host')}/app/userFiles/${req.file.filename}`
-    }else{
-        fileUrl = `${req.protocol}://${req.get('host')}/app/userAvatar/genericAvatar.png`
-    }
-    controller.addUser(req.body, fileUrl).then(data => {
+
+//creacion de un usuario, opcional se puede subir foto
+router.post('/',(req, res) => {
+    controller.addUser(req.body).then(data => {
         console.log(data)
         respone.success(req,res, data, 201)
     }).catch(e => {
@@ -38,6 +31,7 @@ router.post('/', upload.single('photo') ,(req, res) => {
     })
 })
 
+//Hacer login del usuario, devuleve token
 router.post('/login', (req,res) => {
     controller.loginUser(req.body).then(token => {
         console.log(token);
@@ -47,13 +41,59 @@ router.post('/login', (req,res) => {
     })
 })
 
-router.patch('/:id',secure('update'),(req,res) => {
+//funcion para agregar a favoritos
+router.patch('/addFavorite/:id',secure('update'), (req, res) => {
+    controller.addFavSong(req.params.id,req.body).then(data => {
+        respone.success(req,res, data, 200)
+    }).catch(e => {
+        respone.error(req,res,e, 500)
+    })
+})
+
+//funcion para eliminar favoritos
+router.patch('/removeFavorite/:id',secure('update'), (req,res) => {
+    controller.deleteFavSong(req.params.id,req.body).then(data=> {
+        respone.success(req,res,data,200)
+    }).catch(e => {
+        respone.error(req,res,e,500)
+    })
+})
+
+
+//Editar el usuario, devuelve la info editada
+router.patch('/edituser/:id',secure('update'),(req,res) => {
     controller.editUser(req.params.id,req.body).then(data => {
         respone.success(req,res,data, 200)
     }).catch(e => {
         console.error('Error => ',e);
         respone.error(req,res,e, 400)
     })
+})
+
+//Obtener Usuario por Id
+
+router. get('/userbyid/:id', (req,res) => {
+    controller.userById(req.params.id).then(data => {
+        respone.success(req,res,data, 200)
+    }).catch(e => {
+        respone.error(req,res,e,501)
+    })
+})
+
+//Obtener todos los usuarios que son artistas
+router.get('/artist', (req, res) => {
+    controller.getArtist().then(artistas => {
+        respone.success(req, res,artistas,200 )
+    }).catch(e => {
+        respone.error(req,res,e,501)
+    })
+})
+
+
+//Obtener todos los usuarios que son artistas
+router.get('/', (req, res) => {
+    respone.success(req, res,'estamos en get',200 )
+    console.log('estamos en get');
 })
 
 module.exports = router;

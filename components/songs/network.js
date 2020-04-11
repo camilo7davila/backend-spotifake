@@ -1,13 +1,24 @@
 const express = require('express');
-
 const router = express.Router();
 const controller = require('./controller');
 const response = require('../../network/response');
+const secure = require('./secure');
+const path = require('path');
+const multer = require('multer');
 
-const secure = require('./secure')
+//Multer config
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'public/songFiles/')
+    },
+    filename: function (req, file, cb) {
+        cb(null, Date.now() + path.extname(file.originalname)) //Appending .jpg
+    }
+})
+const upload = multer({ storage: storage })
+
 
 router.post('/', secure('postCreate'), (req, res) => {
-    console.log(req.body)
     controller.addSong(req.body).then(dataSong => {
         response.success(req, res, dataSong, 201)
     }).catch(error => {
@@ -16,7 +27,6 @@ router.post('/', secure('postCreate'), (req, res) => {
 });
 
 router.get('/', (req, res) => {
-
     console.log('GET');
     controller.listarCanciones().then(dataSong => {
         response.success(req, res, dataSong, 200)
