@@ -19,11 +19,7 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage: storage })
 
-//funcion de prueba 
-router.get('/', (req, res) => {
-    respone.success(req, res,'estamos en get',200 )
-    console.log('estamos en get');
-})
+
 
 //creacion de un usuario, opcional se puede subir foto
 router.post('/',(req, res) => {
@@ -76,7 +72,7 @@ router.patch('/:id',secure('update'),(req,res) => {
 
 //Obtener Usuario por Id
 
-router. get('/:id', (req,res) => {
+router. get('/userbyid/:id', (req,res) => {
     controller.userById(req.params.id).then(data => {
         respone.success(req,res,data, 200)
     }).catch(e => {
@@ -84,6 +80,20 @@ router. get('/:id', (req,res) => {
     })
 })
 
-//router de prueba
+//Obtener todos los usuarios que son artistas
+router.get('/artist', (req, res) => {
+    controller.getArtist().then(artistas => {
+        respone.success(req, res,artistas,200 )
+    }).catch(e => {
+        respone.error(req,res,e,501)
+    })
+})
+
+
+//Obtener todos los usuarios que son artistas
+router.get('/', (req, res) => {
+    respone.success(req, res,'estamos en get',200 )
+    console.log('estamos en get');
+})
 
 module.exports = router;

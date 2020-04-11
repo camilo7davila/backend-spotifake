@@ -33,6 +33,7 @@ async function loginUser(data) {
         id: user[0]._id,
         email: user[0].email,
         user: user[0].user,
+        rol: user[0].rol
     }
 
     const userFinal = {
@@ -102,11 +103,16 @@ async function userById(id){
     return store.userById(id)
 }
 
+async function getArtist(){
+    return store.getArtist()
+}
+
 module.exports = {
     addUser,
     loginUser,
     editUser,
     addFavSong,
     deleteFavSong,
-    userById
+    userById,
+    getArtist
 }

@@ -121,6 +121,20 @@ function userById(id){
     })
 }
 
+function getArtist(){
+    return new Promise((resolve, reject) => {
+        Model.find({rol: true}).exec((err, users) => {
+            if(err){
+                return reject('Ocurrio un error en la busqueda de los artistas')
+            }
+            if(users.length === 0){
+                return reject('No se encontraron artistas')
+            }
+            return resolve(users)
+        })
+    })
+}
+
 module.exports = {
     add: addUser,
     emailValidator: emailValidator,
@@ -130,5 +144,6 @@ module.exports = {
     addFav: addFav,
     validarFavSong: validarFavSong,
     removeFav: removeFav,
-    userById: userById
+    userById: userById,
+    getArtist:getArtist
 }
