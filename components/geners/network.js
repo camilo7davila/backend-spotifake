@@ -22,12 +22,11 @@ router.get('/', (req, res) => {
     })
 })
 
-router.get('/search_geners', (req, res) => {
-    var word = req.params.body
+router.post('/searchgeners', (req, res) => {
+    var word = req.body.word
     console.log(word);
-    var regex = new RegExp("^"+ word, 'i');
-    controller.searchGeners(regex).then(dataSearch => {
-        console.log(regex);
+    controller.searchGeners(word).then(dataSearch => {
+        console.log(word);
         response.success(req,res,dataSearch,200)
     })
 })

@@ -42,8 +42,13 @@ async function deleteSong(idSong, idAuthor){
 }
 
 async function searchSong(word){
-    console.log('estamos buscando la cancion')
-    return store.findSong(word)
+    if(!word){
+        return Promise.reject('Faltan datos de busqueda')
+    }else{
+        console.log('estamos buscando la cancion')
+        return store.findSong(word)
+    }
+    
 }
 
 

@@ -21,8 +21,13 @@ async function getGeners(){
 }
 
 async function searchGeners(word){
-    console.log('estamos buscando genero')
-    return store.findByWord(word)
+    if(!word){
+        return Promise.reject('Faltan datos de busqueda')
+    }else{
+        console.log('estamos buscando genero')
+        return store.findByGener(word)
+    }
+    
 }
 
 module.exports = {

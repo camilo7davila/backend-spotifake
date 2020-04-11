@@ -95,7 +95,7 @@ function findAndDelete(idParams, data) {
 function findSong(word) {
     console.log('Estamos en la funcion findSong')
     return new Promise((resolve, reject) => {
-        Model.find({nameSong : word }).populate('idAuthor').populate('idGener').populate('idAlbum').exec((error, populate) => {
+        Model.find({nameSong : {$regex: word,  $options: 'i'} }).populate('idAuthor').populate('idGener').populate('idAlbum').exec((error, populate) => {
             if (error) {
                 reject(error);
                 return false;

@@ -22,10 +22,10 @@ function findGeners(){
     })
 }
 
-function findByWord(word) {
-    console.log('Estamos en la funcion findByWord')
+function findByGener(word) {
+    console.log('Estamos en la funcion findByGener')
     return new Promise((resolve, reject) => {
-        Model.find({nameGener : word }).exec((error, populate) => {
+        Model.find({nameGener : {$regex: word,  $options: 'i'}  }).exec((error, populate) => {
             if (error) {
                 reject(error);
                 return false;
@@ -38,5 +38,5 @@ function findByWord(word) {
 module.exports = {
     add: addGener,
     findGener: findGeners,
-    findByWord : findByWord
+    findByGener : findByGener
 }

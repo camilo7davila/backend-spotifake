@@ -35,13 +35,15 @@ router.delete('/:id', secure('postDelete'), (req, res) => {
 })
 
 
-router.get('/search_song', (req, res) => {
+router.post('/searchsong', (req, res) => {
     var word = req.body.word
     console.log(word);
-    var regex = new RegExp("^"+ word, 'i');
-    controller.searchSong(regex).then(dataSearch => {
-        console.log(regex);
+    controller.searchSong(word).then(dataSearch => {
+        console.log(word);
         response.success(req,res,dataSearch,200)
+    }).catch(e => {
+        console.error('Error => ', e);
+        response.error(req, res, e, 400)
     })
 })
 
