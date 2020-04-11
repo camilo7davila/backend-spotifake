@@ -24,11 +24,17 @@ async function listadoAlbunes(){
     return store.getAlbums();
 }
 
+async function searchAlbum(word){
+    console.log('estamos buscando el album')
+    return store.findAlbum(word)
+}
+
 
 
 
 module.exports = {
     addAlbumController: addAlbum,
-    listadoAlbunes: listadoAlbunes
+    listadoAlbunes: listadoAlbunes,
+    searchAlbum : searchAlbum
     
 } 

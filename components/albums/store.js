@@ -20,8 +20,22 @@ function getAlbums(){
     })
 }
 
+function findAlbum(word) {
+    console.log('Estamos en la funcion findAlbum')
+    return new Promise((resolve, reject) => {
+        Model.find({nameAlbum : word }).exec((error, populate) => {
+            if (error) {
+                reject(error);
+                return false;
+            }
+            resolve(populate)
+        })
+    })
+}
+
 
 module.exports = {
     add: addAlbum,
-    getAlbums: getAlbums
+    getAlbums: getAlbums,
+    findAlbum : findAlbum
 } 

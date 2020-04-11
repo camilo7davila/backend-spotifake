@@ -23,4 +23,14 @@ router.get('/', (req, res) =>{
     })
 });
 
+router.get('/search_album', (req, res) => {
+    var word = req.params.body
+    console.log(word);
+    var regex = new RegExp("^"+ word, 'i');
+    controller.searchAlbum(regex).then(dataSearch => {
+        console.log(regex);
+        response.success(req,res,dataSearch,200)
+    })
+})
+
 module.exports = router;

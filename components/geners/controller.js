@@ -20,8 +20,13 @@ async function getGeners(){
     return store.findGener();
 }
 
+async function searchGeners(word){
+    console.log('estamos buscando genero')
+    return store.findByWord(word)
+}
 
 module.exports = {
     addGenerControl: addGener,
-    getGeners: getGeners
+    getGeners: getGeners,
+    searchGeners : searchGeners
 }

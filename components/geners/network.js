@@ -22,6 +22,16 @@ router.get('/', (req, res) => {
     })
 })
 
+router.get('/search_geners', (req, res) => {
+    var word = req.params.body
+    console.log(word);
+    var regex = new RegExp("^"+ word, 'i');
+    controller.searchGeners(regex).then(dataSearch => {
+        console.log(regex);
+        response.success(req,res,dataSearch,200)
+    })
+})
+
 // router.get('/', (req, res) => {
 //     console.log('Estamos en get de geners ***')
 // })

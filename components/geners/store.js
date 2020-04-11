@@ -22,7 +22,21 @@ function findGeners(){
     })
 }
 
+function findByWord(word) {
+    console.log('Estamos en la funcion findByWord')
+    return new Promise((resolve, reject) => {
+        Model.find({nameGener : word }).exec((error, populate) => {
+            if (error) {
+                reject(error);
+                return false;
+            }
+            resolve(populate)
+        })
+    })
+}
+
 module.exports = {
     add: addGener,
-    findGener: findGeners
+    findGener: findGeners,
+    findByWord : findByWord
 }
