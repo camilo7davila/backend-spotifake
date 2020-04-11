@@ -61,7 +61,7 @@ router.patch('/removeFavorite/:id',secure('update'), (req,res) => {
 
 
 //Editar el usuario, devuelve la info editada
-router.patch('/:id',secure('update'),(req,res) => {
+router.patch('/edituser/:id',secure('update'),(req,res) => {
     controller.editUser(req.params.id,req.body).then(data => {
         respone.success(req,res,data, 200)
     }).catch(e => {
