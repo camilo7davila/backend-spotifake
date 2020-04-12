@@ -59,7 +59,17 @@ async function editUser(id, data) {
         if(mongoose.Types.ObjectId.isValid(id) !== true){
             return Promise.reject('el id no es correcto')
         }
-        let edit = await store.findAndUpdate(id, data);
+
+        const fullMessage = {
+            firstName: data.firstName,
+            lastName: data.lastName,
+            user: data.user,
+            email: data.email,
+            rol: false,
+            password: await bcrypt.hash(data.password, 5)
+        }
+
+        let edit = await store.findAndUpdate(id, fullMessage);
         if(edit === null){
             return Promise.reject('No se encontro usuario')
         }
