@@ -65,7 +65,6 @@ async function editUser(id, data) {
             lastName: data.lastName,
             user: data.user,
             email: data.email,
-            rol: false,
             password: await bcrypt.hash(data.password, 5)
         }
 
