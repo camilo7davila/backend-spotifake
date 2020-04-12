@@ -135,6 +135,23 @@ function getArtist(){
     })
 }
 
+function findArtist(word){
+    console.log('Estamos en la funcion findArtist')
+    return new Promise((resolve, reject) => {
+        Model.find({firstName : {$regex: word,  $options: 'i'}, rol: true}).exec((error, populate) => {
+            if (error) {
+                reject(error);
+                return false;
+            }
+            if(populate.length === 0){
+                return reject('busque otra droga musical');
+            }
+            console.log('--------------',populate)
+            resolve(populate)
+        })
+    })
+}
+
 module.exports = {
     add: addUser,
     emailValidator: emailValidator,
@@ -145,5 +162,6 @@ module.exports = {
     validarFavSong: validarFavSong,
     removeFav: removeFav,
     userById: userById,
-    getArtist:getArtist
+    getArtist:getArtist,
+    findArtist: findArtist
 }

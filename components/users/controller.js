@@ -107,6 +107,16 @@ async function getArtist(){
     return store.getArtist()
 }
 
+async function searchAutor(word){
+    if(!word){
+        return Promise.reject('Faltan datos de busqueda')
+    }else{
+        console.log('estamos buscando el autor')
+        return store.findArtist(word)
+    }
+    
+}
+
 module.exports = {
     addUser,
     loginUser,
@@ -114,5 +124,6 @@ module.exports = {
     addFavSong,
     deleteFavSong,
     userById,
-    getArtist
+    getArtist,
+    searchAutor
 }

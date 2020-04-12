@@ -1,7 +1,7 @@
 const express = require('express');
 const multer = require('multer');
 const path = require('path');
-const respone = require('../../network/response');
+const response = require('../../network/response');
 const controller = require('./controller');
 const secure = require('./secure')
 
@@ -25,9 +25,9 @@ const upload = multer({ storage: storage })
 router.post('/',(req, res) => {
     controller.addUser(req.body).then(data => {
         console.log(data)
-        respone.success(req,res, data, 201)
+        response.success(req,res, data, 201)
     }).catch(e => {
-        respone.error(req, res, String(e), 500)
+        response.error(req, res, String(e), 500)
     })
 })
 
@@ -35,27 +35,27 @@ router.post('/',(req, res) => {
 router.post('/login', (req,res) => {
     controller.loginUser(req.body).then(token => {
         console.log(token);
-        respone.success(req,res,token,201)
+        response.success(req,res,token,201)
     }).catch(e => {
-        respone.error(req,res, e , 400)
+        response.error(req,res, e , 400)
     })
 })
 
 //funcion para agregar a favoritos
 router.patch('/addFavorite/:id',secure('update'), (req, res) => {
     controller.addFavSong(req.params.id,req.body).then(data => {
-        respone.success(req,res, data, 200)
+        response.success(req,res, data, 200)
     }).catch(e => {
-        respone.error(req,res,e, 500)
+        response.error(req,res,e, 500)
     })
 })
 
 //funcion para eliminar favoritos
 router.patch('/removeFavorite/:id',secure('update'), (req,res) => {
     controller.deleteFavSong(req.params.id,req.body).then(data=> {
-        respone.success(req,res,data,200)
+        response.success(req,res,data,200)
     }).catch(e => {
-        respone.error(req,res,e,500)
+        response.error(req,res,e,500)
     })
 })
 
@@ -63,10 +63,10 @@ router.patch('/removeFavorite/:id',secure('update'), (req,res) => {
 //Editar el usuario, devuelve la info editada
 router.patch('/edituser/:id',secure('update'),(req,res) => {
     controller.editUser(req.params.id,req.body).then(data => {
-        respone.success(req,res,data, 200)
+        response.success(req,res,data, 200)
     }).catch(e => {
         console.error('Error => ',e);
-        respone.error(req,res,e, 400)
+        response.error(req,res,e, 400)
     })
 })
 
@@ -74,26 +74,41 @@ router.patch('/edituser/:id',secure('update'),(req,res) => {
 
 router. get('/userbyid/:id', (req,res) => {
     controller.userById(req.params.id).then(data => {
-        respone.success(req,res,data, 200)
+        response.success(req,res,data, 200)
     }).catch(e => {
-        respone.error(req,res,e,501)
+        response.error(req,res,e,501)
     })
 })
 
 //Obtener todos los usuarios que son artistas
 router.get('/artist', (req, res) => {
     controller.getArtist().then(artistas => {
-        respone.success(req, res,artistas,200 )
+        response.success(req, res,artistas,200 )
     }).catch(e => {
-        respone.error(req,res,e,501)
+        response.error(req,res,e,501)
     })
 })
 
 
 //Obtener todos los usuarios que son artistas
 router.get('/', (req, res) => {
-    respone.success(req, res,'estamos en get',200 )
+    response.success(req, res,'estamos en get',200 )
     console.log('estamos en get');
+})
+
+
+
+
+router.post('/searchrg', (req, res) => {
+    var word = req.body.word
+    console.log(word);
+    controller.searchAutor(word).then(dataSearch => {
+        console.log(word);
+        response.success(req,res,dataSearch,200)
+    }).catch(e => {
+        console.error('Error => ', e);
+        response.error(req, res, e, 400)
+    })
 })
 
 module.exports = router;
